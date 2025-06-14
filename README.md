@@ -17,7 +17,7 @@ valStr, err := goconf.GetField[string]("my-key-str")
 
 valStr := goconf.GetOpField[string]("my-key-str", "default-value")
 
-valInt := goconf.GetOpField[int]("my.sub.key-int") // { "my": { "sub": { "key-int": 2002 } } }
+valInt := goconf.GetOpField[int]("my.sub.key-int", 2001) // { "my": { "sub": { "key-int": 2002 } } }
 
 type MyConfig struct {
 	X int    `json:"x"`
