@@ -12,7 +12,14 @@ type Config struct {
 	data map[string]interface{}
 }
 
+type CallbackConfig func(c *Config)
+
 var config *Config
+var callbacks = []CallbackConfig{}
+
+func OnLoad(cb CallbackConfig) {
+	callbacks = append(callbacks, cb)
+}
 
 func LoadConfig(filename ...string) error {
 	f := ".config.json"
@@ -31,6 +38,10 @@ func LoadConfig(filename ...string) error {
 	}
 
 	config = &Config{data: raw}
+
+	for _, cb := range callbacks {
+		cb(config)
+	}
 
 	return nil
 }

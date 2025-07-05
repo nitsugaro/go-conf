@@ -1,5 +1,11 @@
 ## Basic Config Handler
 
+Install
+
+```bash
+go get github.com/nitsugaro/go-conf@latest
+```
+
 #### LoadConfig
 
 ```go
