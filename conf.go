@@ -12,7 +12,7 @@ type Config struct {
 	data map[string]interface{}
 }
 
-type CallbackConfig func(c *Config)
+type CallbackConfig func()
 
 var config *Config
 var callbacks = []CallbackConfig{}
@@ -40,7 +40,7 @@ func LoadConfig(filename ...string) error {
 	config = &Config{data: raw}
 
 	for _, cb := range callbacks {
-		cb(config)
+		cb()
 	}
 
 	return nil
