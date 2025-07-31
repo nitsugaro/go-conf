@@ -16,9 +16,14 @@ type CallbackConfig func()
 
 var config *Config
 var callbacks = []CallbackConfig{}
+var loaded = false
 
 func OnLoad(cb CallbackConfig) {
-	callbacks = append(callbacks, cb)
+	if loaded {
+		cb()
+	} else {
+		callbacks = append(callbacks, cb)
+	}
 }
 
 func LoadConfig(filename ...string) error {
@@ -42,6 +47,8 @@ func LoadConfig(filename ...string) error {
 	for _, cb := range callbacks {
 		cb()
 	}
+
+	loaded = true
 
 	return nil
 }
